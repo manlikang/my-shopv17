@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<base href="/"/>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/shopping-mall-index.css" />
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/zhonglin.js"></script>
+
+    <style type="text/css">
+        .layui-form-item label{
+            width: 150px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+	<!--top 开始-->
+    <div class="top">
+    	<div class="top-con w1200">
+        	<p class="t-con-l f-l">您好，欢迎来到宅客微购</p>
+            <ul class="t-con-r f-r">
+            	<li><a href="#">我 (个人中心)</a></li>
+            	<li><a href="#">我的购物车</a></li>
+            	<li><a href="#">我的订单</a></li>
+            	<li class="erweima">
+                	<a href="#">扫描二维码</a>
+                    <div class="ewm-tu">
+                    	<a href="#"><img src="images/erweima-tu.jpg" /></a>
+                    </div>
+                </li>
+                <div style="clear:both;"></div>
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    
+    <!--logo search 开始-->
+    <div class="hd-info1 w1200">
+    	<div class="logo f-l">
+        	<h1><a href="#" title="中林网站"><img src="images/logo.jpg" /></a></h1>
+        </div>
+        <div class="search f-r">
+        	<ul class="sp">
+            	<li class="current" ss-search="sp"><a href="JavaScript:;">商品</a></li>
+                <li ss-search="dp"><a href="JavaScript:;">店铺</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+            <div class="srh">
+            	<div class="ipt f-l">
+                	<input type="text" placeholder="搜索商品..." ss-search-show="sp" />
+                    <input type="text" placeholder="搜索店铺..." ss-search-show="dp" style="display:none;" />
+                </div>
+                <button class="f-r">搜 索</button>
+                <div style="clear:both;"></div>
+            </div>
+            <ul class="sp2">
+                <li><a href="#">绿豆</a></li>
+                <li><a href="#">大米</a></li>
+                <li><a href="#">驱蚊</a></li>
+                <li><a href="#">洗面奶</a></li>
+                <li><a href="#">格力空调</a></li>
+                <li><a href="#">洗发护发</a></li>
+                <li><a href="#">葡萄 </a></li>
+                <li><a href="#">脉动</a></li>
+                <li><a href="#">海鲜水产</a></li>
+                <div style="clear:both;"></div>
+            </ul>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <!--内容开始-->
+    <div class="password-con registered" style="margin-left: 788px;">
+        <form id="form" action="register/register" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" id="username" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+            <div id="user-msg" class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;"></span></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div id="psd-msg" class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;">密码由6-16的字母、数字、符号组成</span></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码</label>
+            <div class="layui-input-inline">
+                <input type="password" id="repassword"  required lay-verify="required" placeholder="请确认密码" autocomplete="off" class="layui-input">
+            </div>
+            <div id="rpsd-msg" class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;">密码不一致，请重新输入</span></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请输入手机号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" id="phone"  required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            </div>
+            <div id="phone-msg" class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;">手机号格式不正确</span></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <input type="text" id="phone-code"  required lay-verify="required" placeholder="手机短信6位验证码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><button id="phone-get-code" class="layui-btn layui-btn-warm" style="margin-top: -8px">获取短信验证码</button></div>
+        </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请输入邮箱地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="email" id="email"  required lay-verify="required" placeholder="1358724404@qq.com" autocomplete="off" class="layui-input">
+                </div>
+                <div id="email-msg"  class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;">邮箱格式不正确</span></div>
+            </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-inline">
+                <input type="text" id="code"   required lay-verify="required" placeholder="请输入下方验证码" autocomplete="off" class="layui-input">
+            </div>
+            <div id="code-msg" class="layui-form-mid layui-word-aux" style="display: none"><img src="" /><span style="margin-left: 10px;">验证码错误</span></div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <div id="verif-code" style="width: 190px;height: 64px;"></div>
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="user-select:none;"><p class="f-l"  style="margin-top: 20px">看不清？<a id="swap-image" style="cursor: pointer">换张图</a></p></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <input id="agree" type="checkbox" name="hobby"/><span style="margin-left: 10px;">我有阅读并同意<span>《宅客微购网站服务协议》</span></span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <button id="register" class="psw-btn" style="margin-left: 0px;">立即注册</button>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <p>已有账号？请<a href="login/toLogin" style="color: #FFB800">登录</a></p>
+            </div>
+        </div>
+        </form>
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(function () {
+            var verifyCode = new GVerify("verif-code");
+
+            $("#swap-image").click(function () {
+                verifyCode.refresh();
+            })
+            layui.use('layer', function(){
+                var layer = layui.layer;
+            });
+
+            $("#register").click(function () {
+                if(!usernameFlag){
+                    layer.msg('请检查用户名', {icon: 2});
+                    $("#username").focus();
+                    return false;
+                }
+
+                if(!passwordFlag){
+                    layer.msg('请检查密码格式', {icon: 2});
+                    $("#password").focus();
+                    return false;
+                }
+                if(!repasswordFlag){
+                    layer.msg('两次密码不一致', {icon: 2});
+                    $("#repassword").focus();
+                    return false;
+                }
+
+                if(!phoneFlag){
+                    layer.msg('请检查手机号格式', {icon: 2});
+                    $("#phone").focus();
+                    return false;
+                }
+
+                if(!mailFlag){
+                    layer.msg('请检查邮箱格式', {icon: 2});
+                    $("#email").focus();
+                    return false;
+                }
+
+                if(!codeFlag){
+                    layer.msg('图形验证码错误', {icon: 2});
+                    $("#code").focus();
+                    return false;
+                }
+
+                if(!$("#agree").prop("checked")){
+                    layer.msg('您必须同意《宅客微购网站服务协议》', {icon: 2});
+                    return false;
+                }
+                var phoneCode = $("#phone-code").val().trim();
+                if(phoneCode.length!==6){
+                    layer.msg('手机验证码错误', {icon: 2});
+                    $("#phone-code").focus();
+                    return false;
+                }
+                var phone=$("#phone").val().trim();
+                $.ajax({
+                    url:"register/verifPhoneCode/"+phone+"/"+phoneCode,
+                    async:false,
+                    success:function (data) {
+                        if(!data){
+                            layer.msg('手机验证码错误', {icon: 2});
+                            $("#phone-code").focus();
+                            return false;
+                        }
+                    }
+
+                })
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('注册成功,但账号还未激活，我们已向您的邮箱发送了一条激活邮件，请在30分钟内前往邮箱进行激活', {
+                        icon: 1,
+                        time: 4000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        $("#form").submit();
+                    });
+                });
+
+            })
+
+            var passwordFlag = false;
+            var repasswordFlag = false;
+            var mailFlag=false;
+            var phoneFlag=false;
+            var codeFlag=false;
+            var usernameFlag=false;
+
+            //获取手机验证码
+            $("#phone-get-code").click(function () {
+                var phone=$("#phone").val().trim();
+                if(phone===""){
+                    $("#phone").focus();
+                    layer.msg('请输入手机号', {icon: 2});
+                    return false;
+                }
+
+                if(!checkMobile(phone)){
+                    $("#phone").focus();
+                    layer.msg('手机号格式不正确，请检查后重新输入', {icon: 2});
+                    return false;
+                }
+
+                if(!phoneFlag){
+                    $("#phone").focus();
+                    layer.msg('手机号已被注册', {icon: 2});
+                    return false;
+                }
+                layer.msg('验证码发送成功，情注意查收', {icon: 6});
+                $.ajax({
+                    url:"register/getMessageCode/"+phone,
+                    success:function (data) {
+                        console.log(data)
+                    }
+                })
+                $("#phone-get-code").prop("disabled",true).removeClass("layui-btn-warm").addClass("layui-btn-disabled");
+                setTimeout(function () {
+                    console.log("取消禁用");
+                    $("#phone-get-code").text("获取验证码").prop("disabled",false).removeClass("layui-btn-disabled").addClass("layui-btn-warm");
+                    clearInterval(t);
+                },60000)
+                var time = 60;
+                var t= setInterval(function () {
+                    time--;
+                    $("#phone-get-code").text(time+"秒后可重新获取")
+                },1000)
+            })
+
+
+            $("#username").blur(function () {
+                var username = $("#username").val().trim();
+                if(username !==""){
+                    $.ajax({
+                        url:"register/isExistName/"+username,
+                        success:function (data) {
+                            if(data === "1"){
+                                $("#user-msg img").attr("src","images/psw-dui.gif")
+                                $("#user-msg span").text("");
+                                usernameFlag=true;
+                            }
+                            else{
+                                $("#user-msg img").attr("src","images/psw-cuo.gif")
+                                $("#user-msg span").text("该用户已存在");
+                                usernameFlag=false;
+                            }
+                        }
+                    })
+
+
+                }else{
+                    $("#user-msg img").attr("src","images/psw-cuo.gif")
+                    $("#psd-msg span").text("用户名不能为空");
+                    usernameFlag=false;
+                }
+                $("#user-msg").show();
+            })
+
+            $("#password").blur(function () {
+                var password = $("#password").val().trim();
+                if( password!== "" && password.length>=6 && password.length<=16){
+                    $("#psd-msg img").attr("src","images/psw-dui.gif")
+                    $("#psd-msg span").text("");
+                    passwordFlag=true;
+                }else{
+                    $("#psd-msg img").attr("src","images/psw-cuo.gif")
+                    $("#psd-msg span").text("密码由6-16的字母、数字、符号组成");
+                    passwordFlag=false;
+                }
+                $("#psd-msg").show();
+            })
+
+            $("#repassword").blur(function () {
+                var repassword = $("#repassword").val().trim();
+                var password = $("#password").val().trim();
+                if( repassword !=="" && repassword === password){
+                    $("#rpsd-msg img").attr("src","images/psw-dui.gif")
+                    $("#rpsd-msg span").text("");
+                    repasswordFlag=true;
+                }else{
+                    $("#rpsd-msg img").attr("src","images/psw-cuo.gif")
+                    $("#rpsd-msg span").text("两次密码不一致");
+                    repasswordFlag=false
+                }
+                $("#rpsd-msg").show();
+            });
+
+            $("#phone").blur(function () {
+                var phone = $("#phone").val().trim();
+                if(checkMobile(phone)){
+                    $.ajax({
+                        url:"register/isExistPhone/"+phone,
+                        success:function (data) {
+                            if(data === "1"){
+                                $("#phone-msg img").attr("src","images/psw-dui.gif")
+                                $("#phone-msg span").text("");
+                                phoneFlag=true;
+                            }else{
+                                $("#phone-msg img").attr("src","images/psw-cuo.gif")
+                                $("#phone-msg span").text("该手机号已被注册");
+                                phoneFlag=false;
+                            }
+                            $("#phone-msg").show();
+                        }
+                    })
+                }else{
+                    $("#phone-msg img").attr("src","images/psw-cuo.gif")
+                    $("#phone-msg span").text("手机号格式错误");
+                    $("#phone-msg").show();
+                    phoneFlag=false;
+                }
+
+            })
+
+
+
+            $("#email").blur(function () {
+                var email = $("#email").val().trim();
+                if(checkEmail(email)){
+                    $.ajax({
+                        url:"register/isExistMail/"+email,
+                        success:function (data) {
+                            if(data === "1"){
+                                $("#email-msg img").attr("src","images/psw-dui.gif")
+                                $("#email-msg span").text("");
+                                mailFlag=true;
+                            }else{
+                                $("#email-msg img").attr("src","images/psw-cuo.gif")
+                                $("#email-msg span").text("该邮箱已被注册");
+                                mailFlag=false
+                            }
+                            $("#email-msg").show();
+                        }
+                    })
+                }else{
+                    $("#email-msg img").attr("src","images/psw-cuo.gif")
+                    $("#email-msg span").text("邮箱格式错误");
+                    $("#email-msg").show();
+                    mailFlag=false;
+                }
+            })
+            $("#code").blur(function () {
+                var verification = $("#code").val().trim();
+                if( verifyCode.validate(verification)){
+                    $("#code-msg img").attr("src","images/psw-dui.gif")
+                    $("#code-msg span").text("");
+                    codeFlag=true;
+                }else{
+                    $("#code-msg img").attr("src","images/psw-cuo.gif")
+                    $("#code-msg span").text("验证码错误");
+                    codeFlag=false
+                }
+                $("#code-msg").show();
+            });
+
+
+
+        })
+
+        function checkMobile(phone){
+            if(phone!==""){
+                var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+                return phoneReg.test(phone);
+            }
+            return false;
+
+        }
+
+        function checkEmail(mail) {
+            if (mail !== "") {
+                var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                isok= reg.test(mail);
+                if (!isok) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+    </script>
+    <!--底部服务-->
+    <div class="ft-service">
+    	<div class="w1200">
+        	<div class="sv-con-l2 f-l">
+            	<dl>
+                	<dt><a href="#">新手上路</a></dt>
+                    <dd>
+                    	<a href="#">购物流程</a>
+                    	<a href="#">在线支付</a>
+                    </dd>
+                </dl>
+                <dl>
+                	<dt><a href="#">配送方式</a></dt>
+                    <dd>
+                    	<a href="#">货到付款区域</a>
+                    	<a href="#">配送费标准</a>
+                    </dd>
+                </dl>
+                <dl>
+                	<dt><a href="#">购物指南</a></dt>
+                    <dd>
+                    	<a href="#">常见问题</a>
+                    	<a href="#">订购流程</a>
+                    </dd>
+                </dl>
+                <dl>
+                	<dt><a href="#">售后服务</a></dt>
+                    <dd>
+                    	<a href="#">售后服务保障</a>
+                    	<a href="#">退款说明</a>
+                    	<a href="#">新手选购商品总则</a>
+                    </dd>
+                </dl>
+                <dl>
+                	<dt><a href="#">关于我们</a></dt>
+                    <dd>
+                    	<a href="#">投诉与建议</a>
+                    </dd>
+                </dl>
+                <div style="clear:both;"></div>
+            </div>
+        	<div class="sv-con-r2 f-r">
+            	<p class="sv-r-tle">187-8660-5539</p>
+            	<p>周一至周五9:00-17:30</p>
+            	<p>（仅收市话费）</p>
+            	<a href="#" class="zxkf">24小时在线客服</a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    
+    <!--底部 版权-->
+    <div class="footer w1200">
+    	<p>
+        	<a href="#">关于我们</a><span>|</span>
+        	<a href="#">友情链接</a><span>|</span>
+        	<a href="#">宅客微购社区</a><span>|</span>
+        	<a href="#">诚征英才</a><span>|</span>
+        	<a href="#">商家登录</a><span>|</span>
+        	<a href="#">供应商登录</a><span>|</span>
+        	<a href="#">热门搜索</a><span>|</span>
+        	<a href="#">宅客微购新品</a><span>|</span>
+        	<a href="#">开放平台</a>
+        </p>
+        <p>
+        	沪ICP备13044278号<span>|</span>合字B1.B2-20130004<span>|</span>营业执照<span>|</span>互联网药品信息服务资格证<span>|</span>互联网药品交易服务资格证
+        </p>
+    </div>
+    
+</body>
+<script type="text/javascript" src="js/verifCode.js"></script>
+</html>

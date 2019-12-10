@@ -1,0 +1,27 @@
+dubbo:
+  application:
+    name: web-item
+    qos-enable: true
+    qos-port: 44443
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+server:
+  port: 10083
+
+#  spring.rabbitmq.host=154.8.211.233
+#  spring.rabbitmq.port=5672
+#  spring.rabbitmq.username=root
+#  spring.rabbitmq.password=123
+spring:
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+#  spring.rabbitmq.virtual-host=/fuhan

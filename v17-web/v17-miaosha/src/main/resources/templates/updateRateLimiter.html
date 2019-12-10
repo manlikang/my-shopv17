@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="/"/>
+    <meta charset="UTF-8">
+    <title>updateRateLimiter</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+
+当前流量限制：<span id="nowNum" th:text="${rate}"></span><br>
+更改限制:<input type="number" id="num"><br>
+<input type="button" id="confirm" value="确认修改">
+<script>
+    $(function () {
+        $("#confirm").click(function () {
+            var rate = $("#num").val().trim();
+            $.ajax({
+                url:"miaosha/update",
+                data:"rate="+rate,
+                success:function (data) {
+                    if(data==="success"){
+                        location.reload();
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

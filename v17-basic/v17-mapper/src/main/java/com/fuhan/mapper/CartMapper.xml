@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuhan.mapper.CartMapper">
+  <resultMap id="BaseResultMap" type="com.fuhan.entity.Cart">
+    <!--@mbg.generated-->
+    <!--@Table t_cart-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="productId" jdbcType="INTEGER" property="productid" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, userId, productId, updateDate, `count`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_cart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_cart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.fuhan.entity.Cart" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_cart (userId, productId, updateDate, 
+      `count`)
+    values (#{userid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{count,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.fuhan.entity.Cart" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="productid != null">
+        productId,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuhan.entity.Cart">
+    <!--@mbg.generated-->
+    update t_cart
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        productId = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuhan.entity.Cart">
+    <!--@mbg.generated-->
+    update t_cart
+    set userId = #{userid,jdbcType=INTEGER},
+      productId = #{productid,jdbcType=INTEGER},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      `count` = #{count,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="CartItemVO" type="com.fuhan.vo.CartItemVO">
+    <result column="productId" javaType="integer" property="product.id" />
+    <result column="name" jdbcType="VARCHAR" property="product.name"/>
+    <result column="price" jdbcType="DOUBLE" property="product.price"/>
+    <result column="sale_price" jdbcType="DOUBLE" property="product.salePrice"/>
+    <result column="images" jdbcType="VARCHAR" property="product.images"/>
+    <result column="sale_point" jdbcType="VARCHAR" property="product.salePoint"/>
+    <result column="Stock" jdbcType="INTEGER" property="product.stock"/>
+    <result column="type_name" jdbcType="VARCHAR" property="product.typeName"/>
+    <result column="count" javaType="INTEGER" property="count" />
+    <result column="updateDate" javaType="date" property="updateTime" />
+  </resultMap>
+  <select id="getList" resultMap="BaseResultMap">
+    select * from t_cart
+  </select>
+  <select id="getCartItemVOList" resultMap="CartItemVO" parameterType="integer">
+    select  p.id as productId,p.name,p.price,p.sale_price,p.images,p.Stock,p.sale_point,p.type_name,cart.count,updateDate   from t_cart cart ,t_product p where cart.productId=p.id and userId=#{userId}
+  </select>
+  <insert id="batchAdd" parameterType="com.fuhan.entity.Cart">
+    insert into t_cart(userId, productId, updateDate,`count`) values
+    <foreach collection="list" close="" open="" separator="," item="cart" >
+      (#{cart.userid,jdbcType=INTEGER},#{cart.productid,jdbcType=INTEGER},#{cart.updatedate,jdbcType=TIMESTAMP},#{cart.count,jdbcType=INTEGER})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    `count` =VALUES(`count`),updateDate = values(updateDate);
+  </insert>
+    <delete id="delProductByProductId">
+        delete from t_cart where userId=#{userId} and productId=#{productId}
+    </delete>
+</mapper>

@@ -1,0 +1,37 @@
+dubbo:
+  application:
+    name: web-register-login
+    qos-enable: true
+    qos-port: 44447
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+  consumer:
+    timeout: 20000
+
+server:
+  port: 10087
+spring:
+  thymeleaf:
+    cache: false
+alipayproperties:
+  APP_PRIVATE_KEY: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCzG4hGG2K/hbRhy9oMQSSDlm1JimsyzQAkQqQgtMV/VKS6l53Wb93obl/XbaGrwp5VwuG3ASp+JlAWD74nN4tXTjUQW4GJ/GSD69AiadtzMB3+L5EXN5E8zGEAoYA5b8eVwT3/9v4is+MwGiJd7FhWZb92Fp60++xfjSGRCvQ1OT2uQ32Pvo4duEp37IJ4sVogoC1Q6lEkqKbWWHe6HSNuv+z0V76pSGqBCOEg+BvUB8IJzHol2/cBDDtYVVUeOohQrBmiCkzwTLmrOMZ3zpv7oTsaNjj6e7V01BMTjHWz6DibDA7Mm2xvpp3KfoLK2mN+Hc7xzIENqkMqmVf5rs3pAgMBAAECggEBAKS1MQCntovB/TviJ0cVsOqBr0btz98LvpGZ5y1ckDKkOEiPnUrR3RQeTGzkGMTHWKwtZzzQCa+ws/1VxNxzq+RBu3Krc9jdDeJzPRgomPK40RwryhW7uAhdOudFnZE0RiplZwq4rMRlAQv/PJN7AVGSiBukeZaeBaVpN/EWTbWSvDu5oV4Of2JIujqFKq5XEWP59ijn4AxE+MW61wjY9L9fV63ceL2P74Rn7DKn5wbLYp3jskv0fDAbMzvFLeLtnMi3yNgjhfXa8VSpMnGqH8xW6T7/nFp/B1RVy/qd/OeKaD1EGe5dhJtYwiV0TtK6Nu2WSn0dQ3hNE2+KJxH2K3ECgYEA93Xh5uxdHMoQ3CEErz0C51cch7rgLhH+vbi9fN223EXjzXDP/SptvaFC6YQjUd4ssXggXr0SJlmWNIQKRILyDpD8iunYsG/dCjPnkPInk43cRw8371mp+srcGC9qWXGIxNw8C5ysBGaMciXOm8EuCYr1FguvFrPyTGC0BK3REMcCgYEAuUnOSm+X5Fna7Ykdqe4/PrKP/XNANu87zlOjQE22BqCTk5bzOnpqrzwAabYysJTpwXi4UpjK3i0hS+axRjqf7aZiU+ot2PLzQ/M8uNTlIMQfN/Jrx2bme+/LxMpvUYktJLSmjvFgoySNs49jIxH+i7MdnCcscyUhPW8Fu5F4288CgYEA4UIcfgHBDLjfuhIQWphWMVI5tVAmS6mz0u39B1In58FzCYrcud7KgKjv6POQ1zBATNhF1xeTEvfP5EQhuJXeU+YlDSqrRoi9lFEFRQs5fXbQAptW1nkvYw0QZq+axoqz7kdwHT3j1CmpRSsnNN8X0jX8vbGrEyaAtIf+tpemzPcCgYB7bbAPI+FyC21seL+a+IuG75o9wu2O6rTTUCHa7ymHpqZIVfD3Dp9M1lKMGQQRX1GMQSfAVeomMLgSgL2sw9bPj9vGfKRH9ieZJ0pW8fMkbaFCOqoTbfexrd7228dl8FRzNCgT5rVyWCJQ7/6hWRZQ52OdJvdUSPKoovGVrmVtPwKBgQDc8sX8TRnduP3EPnB20PH0zQAn9KYe/96sSXvCt1DG/BuKKmAiaH1pLyZYZDGFG/kAjRzoYsLfdd4meK9S3Oq+z0fK0Umsaj/1EfzocF7RYWo6J8ROwvU/qFEoQrjRJAXbHVhhgTPjZm1Q+dxYK5CLuO0OxCjAh8r6CMl+Nb6YHQ==
+  ALIPAY_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj6Lnq3rzj7R+6FAT/HT6g7yxW3/teqRN1JEDHjR/qn61GghvyPZ7QOdqrhEvL+y8ibvn6vvfU6Et55NoqCM/50QiBTlqT7LZLHlxIP5HNuFKGiUmU6F5g9/Js2cCN0lNSH7qTpbZ0NJ9DufhQg5I6q9zdJNBcAZAXB27Q8u0AbI/XeBUtoQ+uj6xHm7p29+tpIq3gWJi2NysdDwXBZudzDspxGzHyxTIYsoN3rrRwpOdG/EhxlaYWH0qFWjGMvqhUFRwrwOL6m7PeORPZZEEnIc2AYp3LeY7u0JhSylRLC0rgO5A9DrKstfxSoSnV9LMJ0IzxulCMhWvCtRUb3IceQIDAQAB
+  serverUrl: https://openapi.alipaydev.com/gateway.do
+  appId : 2016101600701252
+  format: json
+  charset: utf-8
+
+
+#  spring.rabbitmq.host=154.8.211.233
+#  spring.rabbitmq.port=5672
+#  spring.rabbitmq.username=root
+#  spring.rabbitmq.password=123
+#  spring.rabbitmq.virtual-host=/fuhan
+#  spring.rabbitmq.listener.simple.acknowledge-mode=manual
+#  spring.rabbitmq.publisher-confirms=true
+
+
+
+

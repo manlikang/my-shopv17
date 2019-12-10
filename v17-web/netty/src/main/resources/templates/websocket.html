@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="/"/>
+    <meta charset="UTF-8">
+    <title>websocket通讯演示案例</title>
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+</head>
+<body>
+
+您的用户Id为<span id="userId" th:text="${userId}"></span>
+
+<h3>消息列表</h3>
+<div id="receiveMsg" style="background-color: aliceblue">
+
+</div>
+
+<h3>秒杀</h3>
+请输入您要参与秒杀的活动id<input type="text" id="activeId">
+请输入提醒时间段<select>
+    <option value="1" selected>9:50</option>
+    <option value="2">10:50</option>
+    <option value="3">11:50</option>
+    <option value="4">13:50</option>
+</select>
+<input type="button" id="send" value="立即预约">
+</body>
+
+<script type="text/javascript">
+    $(function () {
+        var socket;
+        var userId = $("#userId").text();
+        if(window.WebSocket){
+            socket = new WebSocket("ws://127.0.0.1:8888/ws");
+            socket.onopen = function (ev) {
+                console.log("连接成功");
+                socket.send("{\"msgType\":1,\"data\":"+userId+"}");
+            }
+
+
+            socket.onmessage = function (ev) {
+                console.log("接收到的消息为"+ev.data)
+                $("#receiveMsg").append("<hr/>"+ev.data)
+            }
+        }else{
+            alert("浏览器版本过低，请升级")
+        }
+
+
+        $("#send").click(function () {
+            var msg = $("#msg").val();
+            $("#msg").val("");
+            socket.send(msg);
+
+        })
+    })
+
+</script>
+</html>

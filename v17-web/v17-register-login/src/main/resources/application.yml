@@ -1,0 +1,40 @@
+dubbo:
+  application:
+    name: web-register-login
+    qos-enable: true
+    qos-port: 44444
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+  consumer:
+    timeout: 20000
+
+server:
+  port: 10084
+spring:
+  thymeleaf:
+    cache: false
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+    publisher-confirms: true
+
+
+#  spring.rabbitmq.host=154.8.211.233
+#  spring.rabbitmq.port=5672
+#  spring.rabbitmq.username=root
+#  spring.rabbitmq.password=123
+#  spring.rabbitmq.virtual-host=/fuhan
+#  spring.rabbitmq.listener.simple.acknowledge-mode=manual
+#  spring.rabbitmq.publisher-confirms=true
+
+
+
+

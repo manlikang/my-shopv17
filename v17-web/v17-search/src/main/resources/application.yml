@@ -1,0 +1,29 @@
+dubbo:
+  application:
+    name: web-search
+    qos-enable: true
+    qos-port: 44445
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+  consumer:
+    timeout: 10000
+server:
+  port: 10085
+spring:
+  thymeleaf:
+    cache: false
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+
+
+

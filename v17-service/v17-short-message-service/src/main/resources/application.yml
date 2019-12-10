@@ -1,0 +1,27 @@
+dubbo:
+  application:
+    name: short-messagecode-service
+    qos-enable: true
+    qos-port: 33335
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+  protocol:
+    port: 28814
+spring:
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+  redis:
+    host: 106.13.197.193
+    port: 6379
+    password: 517310
+server:
+  port: 9094

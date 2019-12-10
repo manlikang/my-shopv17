@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="/"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/uploadifive.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="js/jquery.uploadifive.js"></script>
+    <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+</head>
+<style>
+    td th{
+        text-align: center;
+    }
+</style>
+<body>
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <div class="col-md-4 ">
+            <button type="button" class="btn btn-primary btn-lg" id="to-add">添加</button>
+            <button type="button" class="btn btn-danger btn-lg" id="delChecked">删除</button>
+        </div>
+        <br><br>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <tr>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'><input id="all-checkbox" type="checkbox"/></th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>ID</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>商品名</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>商品价格</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>商品类型</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>商品图片</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: center;'>操作</th>
+                </tr>
+                <tr th:each="product : ${page.list}" >
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;'><input value="" th:value="${product.id}" class="mycheckbox" type="checkbox"/></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;' th:text="${product.id}"></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;' th:text="${product.name}"></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;' th:text="${product.price}"></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;' th:text="${product.typeName}"></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;'><img src="" th:src="${product.images}" width="120px" height="120px" class="img-rounded"/></td>
+                    <td rowspan=$rowspan style='vertical-align: middle;text-align: center;'>
+                        <button type="button" class="btn btn-primary  update-button">修改</button>
+                        <button type="button" class="btn btn-danger  del" id="" th:id="${product.id}">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-4 col-lg-offset-4col-xl-offset-4">
+            <span style="font-size: 18px">总共&nbsp;&nbsp;<span th:text="${page.total}" style="color: #31b0d5">1</span>&nbsp;&nbsp;条数据 当前 &nbsp;&nbsp;<span style="color: #31b0d5" th:text="${page.pageNum}">1</span>/
+                <span style="color: #31b0d5" th:text="${page.pages}">1</span>&nbsp;&nbsp;页</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-lg-offset-4col-xl-offset-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-lg">
+                    <li>
+                        <a href="#" aria-label="Previous" th:href="|product/page/${page.pageNum-1}/${page.pageSize}|">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="pageNum:${page.navigatepageNums}" th:class="${pageNum == page.pageNum ? 'active':''}">
+                        <a href="#" th:href="|product/page/${pageNum}/${page.pageSize}|" th:text="${pageNum}">1</a>
+                    </li>
+
+                    <li>
+                        <a href="#" aria-label="Next" th:href="|product/page/${page.pageNum+1}/${page.pageSize}|">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="product/add" method="post" id="addForm">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">商品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" placeholder="输入商品名" name="product.name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="col-sm-2 control-label">价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="price" name="product.price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock" class="col-sm-2 control-label">库存</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="stock" name="product.stock">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="salePrice" class="col-sm-2 control-label">促销价</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="salePrice" name="product.salePrice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="file_upload" class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-10">
+                            <input id="file_upload" type="file" name="image"/>
+                            <img src="#" id="upload-img" height="100px;" width="80px" style="display: none">
+                            <input type="hidden" id="hidden-image" name="product.images">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="salePoint" class="col-sm-2 control-label">卖点</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="salePoint" name="product.salePoint">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_id" class="col-sm-2 control-label">商品类别</label>
+                        <div class="col-sm-10">
+                            <!--                            <input type="text" class="form-control" id="type_id" value="1" name="product.typeId">-->
+                            <div class="col-xs-4">
+                                <select class="form-control" id="parent_id" name="product.pid">
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <select class="form-control" id="small_id" name="product.typeId">
+                                    <option value="-1">请选择</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <select class="form-control" id="my_type_id" name="product.myTypeId">
+                                    <option value="-1">请选择</option>
+                                </select>
+                            </div>
+                            <!--                            <input type="text" class="form-control" id="type_name" value="电子数码" name="product.typeName">-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDesc" class="col-sm-2 control-label">商品描述</label>
+                        <div class="col-sm-10">
+                            <div id="productDesc">
+                            </div>
+                            <input id="productDesc1" type="hidden" name="productDesc">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="add-save">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(function () {
+
+    })
+</script>
+
+
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor = new E('#productDesc');
+    editor.customConfig.uploadImgServer = '/file/batchUpload';
+    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+    editor.customConfig.uploadImgMaxLength = 5;
+    editor.customConfig.uploadFileName = 'files';
+    editor.customConfig.menus = [
+        'head',
+        'bold',
+        'italic',
+        'underline',
+        'image',  // 插入图片
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'undo',  // 撤销
+        'redo', // 重复
+        'list',  // 列表
+        'justify',  // 对齐方式
+    ]
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create()
+</script>
+<!--修改模态框-->
+<div class="modal fade" tabindex="-1" role="dialog" id="update-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="product/update" method="post" id="updateForm">
+                    <input type="hidden" value="" id="update-id" name="product.id">
+                    <div class="form-group">
+                        <label for="update-name" class="col-sm-2 control-label">商品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="update-name" name="product.name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-price" class="col-sm-2 control-label">价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="update-price" name="product.price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-salePrice" class="col-sm-2 control-label">促销价</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="update-salePrice" name="product.salePrice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-stock" class="col-sm-2 control-label">库存</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="update-stock" name="product.stock">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-hidden-image" class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-10">
+                            <input id="update-file_upload" type="file" name="image"/>
+                            <img src="#" id="update-upload-img" height="100px;" width="80px">
+                            <input type="hidden" id="update-hidden-image" name="product.images">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-salePoint" class="col-sm-2 control-label">卖点</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="update-salePoint" name="product.salePoint">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-parent_id" class="col-sm-2 control-label">商品类别</label>
+                        <div class="col-sm-10">
+                            <div class="col-xs-4">
+                                <select class="form-control" id="update-parent_id" name="product.pid">
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <select class="form-control" id="update-small_id" name="product.typeId">
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <select class="form-control" id="update-myType_id" name="product.myTypeId">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-productDesc" class="col-sm-2 control-label">商品描述</label>
+                        <div class="col-sm-10">
+                            <div id="update-productDesc">
+                            </div>
+                            <input id="update-productDesc1" type="hidden" name="productDesc">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update-save">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor = new E('#update-productDesc');
+    editor.customConfig.uploadImgServer = '/file/batchUpload';
+    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+    editor.customConfig.uploadImgMaxLength = 5;
+    editor.customConfig.uploadFileName = 'files';
+    editor.customConfig.menus = [
+        'head',
+        'bold',
+        'italic',
+        'underline',
+        'image',  // 插入图片
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'undo',  // 撤销
+        'redo', // 重复
+        'list',  // 列表
+        'justify',  // 对齐方式
+    ]
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create()
+</script>
+<!--<script src="../../static/js/jquery-3.4.1.js"></script>-->
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<!-- 配置文件 -->
+
+<script>
+    $(function () {
+
+        $('#file_upload').uploadifive({
+            'buttonText': '图片上传',
+            'fileObjName': 'file_upload',
+            'uploadScript': 'file/upload',
+            'onUploadComplete': function (file, data) {
+                alert("上传成功");
+                data = JSON.parse(data);
+                $("#upload-img").attr("src", data.data);
+                $("#upload-img").show();
+                $("#hidden-image").val(data.data);
+            }
+            // Put your options here
+        });
+        $('#update-file_upload').uploadifive({
+            'buttonText': '更改图片',
+            'fileObjName': 'file_upload',
+            'uploadScript': 'file/upload',
+            'onUploadComplete': function (file, data) {
+                alert("上传成功");
+                data = JSON.parse(data);
+                $("#update-upload-img").attr("src", data.data);
+                $("#update-hidden-image").val(data.data);
+            }
+            // Put your options here
+        });
+
+        $("#parent_id").change(function () {
+            var smallHtml = "<option value='-1' >请选择</option>";
+            var id = $(this).val();
+            var smallType = new Object();
+            console.log(id);
+            if (id !== -1) {
+                $.ajax({
+                    url: "product/getSmallList/" + id,
+                    async: false,
+                    success: function (data) {
+                        smallType = data;
+                    }
+                })
+                smallType = JSON.parse(smallType);
+                for (var i = 0; i < smallType.length; i++) {
+                    smallHtml += "<option value=" + smallType[i].id + " >" + smallType[i].name + "</option>"
+                }
+            }
+
+            $("#small_id").html(smallHtml);
+            $("#my_type_id").html("<option value='-1' >请选择上级</option>");
+
+        });
+
+        $("#small_id").change(function () {
+            var smallHtml = "<option value='-1' >请选择</option>";
+            var id = $(this).val();
+            var smallType = new Object();
+            console.log(id);
+            if (id !== -1) {
+                $.ajax({
+                    url: "product/getSmallList/" + id,
+                    async: false,
+                    success: function (data) {
+                        smallType = data;
+                    }
+                })
+                smallType = JSON.parse(smallType);
+                for (var i = 0; i < smallType.length; i++) {
+                    smallHtml += "<option value=" + smallType[i].id + " >" + smallType[i].name + "</option>"
+                }
+            }
+
+            $("#my_type_id").html(smallHtml);
+        })
+
+        $("#update-parent_id").change(function () {
+            var smallHtml = "<option value='-1' >请选择</option>";
+            var id = $(this).val();
+            var smallType = new Object();
+            console.log(id);
+            if (id !== -1) {
+                $.ajax({
+                    url: "product/getSmallList/" + id,
+                    async: false,
+                    success: function (data) {
+                        smallType = data;
+                    }
+                })
+                smallType = JSON.parse(smallType);
+                for (var i = 0; i < smallType.length; i++) {
+                    smallHtml += "<option value=" + smallType[i].id + " >" + smallType[i].name + "</option>"
+                }
+            }
+
+            $("#update-small_id").html(smallHtml);
+            $("#update-myType_id").html("<option value='-1' >请选择上级</option>");
+        })
+
+        $("#update-small_id").change(function () {
+            var smallHtml = "<option value='-1' >请选择</option>";
+            var id = $(this).val();
+            var smallType = new Object();
+            console.log(id);
+            if (id !== -1) {
+                $.ajax({
+                    url: "product/getSmallList/" + id,
+                    async: false,
+                    success: function (data) {
+                        smallType = data;
+                    }
+                })
+                smallType = JSON.parse(smallType);
+                for (var i = 0; i < smallType.length; i++) {
+                    smallHtml += "<option value=" + smallType[i].id + " >" + smallType[i].name + "</option>"
+                }
+            }
+
+            $("#update-myType_id").html(smallHtml);
+
+        })
+
+
+        $("#to-add").click(function () {
+            var allType = new Object();
+            $.ajax({
+                url: "product/getParentTypeList",
+                async: false,
+                success: function (data) {
+                    allType = data;
+                }
+            })
+            allType = JSON.parse(allType);
+            console.log(allType[1].name);
+            var parentHtml = "<option value='-1' >请选择</option>";
+            for (var i = 0; i < allType.length; i++) {
+                parentHtml += "<option value=" + allType[i].id + " >" + allType[i].name + "</option>";
+            }
+            $("#parent_id").html(parentHtml);
+            $('#add-modal').modal({
+                backdrop: "static",
+                keyboard: false
+            })
+        })
+
+        $("#add-save").click(function () {
+            //
+            $("#productDesc1").val($("#productDesc").html());
+            $("#addForm").submit();
+        })
+
+        var size = $(".mycheckbox").length;
+        var count = 0;
+        $("#all-checkbox").click(function () {
+            if ($(this).prop("checked")) {
+                $(".mycheckbox").prop("checked", true);
+                count = size;
+            } else {
+                $(".mycheckbox").prop("checked", false);
+                count = 0;
+            }
+
+        });
+        $(".mycheckbox").click(function () {
+            if ($(this).prop("checked")) {
+                count++;
+            } else {
+                count--
+            }
+            if (count == size) {
+                $("#all-checkbox").prop("checked", true);
+            } else {
+                $("#all-checkbox").prop("checked", false);
+            }
+        })
+
+        $(".update-button").click(function () {
+            var tr = $(this).parent().parent();
+            var td = $(tr).children();
+            var id = $(td[1]).text();
+            var obj = new Object();
+
+
+            $.ajax({
+                url: "product/toUpdate/" + id,
+                async: false,
+                success: function (data) {
+                    obj = data;
+                }
+            })
+
+
+            var allType = new Object();
+            $.ajax({
+                url: "product/getParentTypeList",
+                async: false,
+                success: function (data) {
+                    allType = data;
+                }
+            })
+            allType = JSON.parse(allType);
+            console.log(allType[1].name);
+            var parentHtml = "<option value='-1' >请选择</option>";
+            for (var i = 0; i < allType.length; i++) {
+                parentHtml += "<option value=" + allType[i].id + " >" + allType[i].name + "</option>";
+            }
+            $("#update-parent_id").html(parentHtml);
+
+
+            var smallHtml = "";
+            var sid = obj.product.pid;
+            var smallType = new Object();
+            console.log(sid);
+            if (sid == -1) {
+                smallHtml = "<option value='-1' >请选择</option>";
+            } else {
+                $.ajax({
+                    url: "product/getSmallList/" + sid,
+                    async: false,
+                    success: function (data) {
+                        smallType = data;
+                    }
+                })
+                smallType = JSON.parse(smallType);
+                for (var i = 0; i < smallType.length; i++) {
+                    smallHtml += "<option value=" + smallType[i].id + " >" + smallType[i].name + "</option>"
+                }
+            }
+
+
+            var my_smallHtml = "";
+            var my_id = obj.product.typeId;
+            var my_smallType = new Object();
+            console.log(my_id);
+            if (id == -1) {
+                my_smallHtml = "<option value='-1' >请选择</option>";
+            } else {
+                $.ajax({
+                    url: "product/getSmallList/" + my_id,
+                    async: false,
+                    success: function (data) {
+                        my_smallType = data;
+                    }
+                })
+                my_smallType = JSON.parse(my_smallType);
+                for (var j = 0; j < my_smallType.length; j++) {
+                    my_smallHtml += "<option value=" + my_smallType[j].id + " >" + my_smallType[j].name + "</option>"
+                }
+            }
+
+            $("#update-small_id").html(smallHtml);
+            $("#update-myType_id").html(my_smallHtml);
+
+            $("#update-id").val(obj.product.id);
+            $("#update-name").val(obj.product.name);
+            $("#update-hidden-image").val(obj.product.images);
+            $("#update-stock").val(obj.product.stock);
+            $("#update-parent_id").val(obj.product.pid);
+            $("#update-small_id").val(obj.product.typeId);
+            $("#update-myType_id").val(obj.product.myTypeId);
+            console.log("该商品的ID为" + obj.product.myTypeId)
+            $("#update-upload-img").attr("src", obj.product.images);
+            $("#update-price").val(obj.product.price);
+            $("#update-salePrice").val(obj.product.salePrice);
+            $("#update-salePoint").val(obj.product.salePoint);
+            //$("#update-typeId").val(obj.product.typeId);
+            $("#update-typeName").val(obj.product.typeName);
+            $("#update-productDesc").html(obj.productDesc);
+            $("#update-productDesc1").val(obj.productDesc);
+            $('#update-modal').modal({
+                backdrop: "static",
+                keyboard: false
+            })
+
+            $("#update-save").click(function () {
+                //
+                $("#update-productDesc1").val($("#update-productDesc").html());
+                $("#updateForm").submit();
+            })
+        })
+
+
+        $(".del").click(function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "product/del/" + id,
+                success: function (data) {
+                    console.log(data)
+                }
+            });
+            $(this).parent().parent().remove();
+
+        })
+
+        $("#delChecked").click(function () {
+            var ids = []
+            $(".mycheckbox:checked").each(function () {
+                var id = Number($(this).val());
+                ids.push(id);
+            })
+            console.log(ids)
+
+            $.ajax({
+                url: "product/batchDel",
+                data: "ids=" + ids,
+                success: function (data) {
+                    console.log(data)
+                    location.reload();
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

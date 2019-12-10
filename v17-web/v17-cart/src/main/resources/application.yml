@@ -1,0 +1,43 @@
+dubbo:
+  application:
+    name: web-index
+    qos-enable: true
+    qos-port: 44442
+    qos-accept-foreign-ip: false
+  registry:
+    address: 106.13.197.193:2181
+    protocol: zookeeper
+  consumer:
+    timeout: 10000
+    retries: 6
+server:
+  port: 10082
+spring:
+  thymeleaf:
+    cache: false
+  redis:
+    host: 106.13.197.193
+    port: 6379
+    password: 517310
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+
+
+
+
+
+#  dubbo.application.name=dubbo2-springboot-consumer
+#  dubbo.registry.protocol=zookeeper
+
+
+
+
+

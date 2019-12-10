@@ -1,0 +1,42 @@
+spring:
+  rabbitmq:
+    host: 106.13.197.193
+    port: 5672
+    username: root
+    password: 517310
+    virtual-host: /fuhan
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 10
+    publisher-confirms: true
+  redis:
+    host: 106.13.197.193
+    port: 6379
+    password: 517310
+  datasource:
+    url: jdbc:mysql://106.13.197.193:3306/v17?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: DjbcZU5dm3Di/7KJluRSjqTDqm6lneGG5kCfcq6TfXmv4ErYUmjxXcuyMYMy/9LeCltgW6/fVzqYlbbRlQCmAw==
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      filter:
+        config:
+          enabled: true
+      connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALePYS6OsX0jLnDsG71gXRLpuEh0VRcz786gHART5ojpAQ6RklLQExlfEG4vpCbQ76k9a+fnbUOl0oqv+TmQWJ0CAwEAAQ==
+dubbo:
+  application:
+    name: web-miaosha
+    qos-enable: true
+    qos-port: 44449
+    qos-accept-foreign-ip: false
+  registry:
+    protocol: zookeeper
+    address: 106.13.197.193:2181
+  consumer:
+    timeout: 20000
+server:
+  port: 10089
