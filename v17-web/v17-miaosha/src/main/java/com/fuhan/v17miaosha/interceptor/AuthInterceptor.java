@@ -1,7 +1,7 @@
 package com.fuhan.v17miaosha.interceptor;
 
 
-import com.google.common.util.concurrent.RateLimiter;
+import org.apache.curator.shaded.com.google.common.util.concurrent.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

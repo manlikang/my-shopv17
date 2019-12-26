@@ -1,6 +1,6 @@
 package com.fuhan.v17miaosha.config;
 
-import com.google.common.util.concurrent.RateLimiter;
+import org.apache.curator.shaded.com.google.common.util.concurrent.RateLimiter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

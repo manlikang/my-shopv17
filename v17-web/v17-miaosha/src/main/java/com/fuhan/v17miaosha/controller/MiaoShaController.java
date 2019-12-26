@@ -4,7 +4,7 @@ import com.fuhan.v17miaosha.entity.MiaoshaProduct;
 import com.fuhan.v17miaosha.pojo.ResultBean;
 import com.fuhan.v17miaosha.sender.Sender;
 import com.fuhan.v17miaosha.service.IMiaoShaService;
-import com.google.common.util.concurrent.RateLimiter;
+import org.apache.curator.shaded.com.google.common.util.concurrent.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

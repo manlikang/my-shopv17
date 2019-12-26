@@ -1,8 +1,8 @@
 package com.fuhan.v17miaosha.consumer;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.shaded.com.google.common.util.concurrent.RateLimiter;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
