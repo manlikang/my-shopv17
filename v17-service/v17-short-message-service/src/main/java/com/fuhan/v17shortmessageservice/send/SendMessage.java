@@ -7,8 +7,8 @@ package com.fuhan.v17shortmessageservice.send;
  */
 public class SendMessage {
     public  String getHttpAddr(String to,String template,String code) throws Exception {
-        String accessKeyId = "LTAI4FrM8pPAK1pnnb5sTvqd";
-        String accessSecret = "FRGRGpw1mZ0hLAepP6St52zVk4fVok";
+        String accessKeyId = "access_key";
+        String accessSecret = "access_security";
         java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(new java.util.SimpleTimeZone(0, "GMT"));// 这里一定要设置GMT时区
         java.util.Map<String, String> paras = new java.util.HashMap<String, String>();
